@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg bg-primary fs-5" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'mailing:main' %}"><i class="bi bi-envelope-at-fill"></i>
+            Почтовая рассылка</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav me-auto">
+                {% if "users.view_users_list" in perms %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="{% url 'users:user_list' %}">Список пользователей</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'mailing:recipient_list' %}">Получатели</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'mailing:message_list' %}"> Сообщения </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'mailing:mailing_list' %}"> Рассылки </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'mailing:mailing_attempt_list' %}"> Попытки </a>
+                </li>
+            </ul>
+            {% endif %}
+            <ul class="navbar-nav d-flex ms-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'users:user_detail' user.pk %}"><i class="bi bi-person-circle"></i> {{ user.email }}</a>
+                </li>
+                <li class="nav-item">
+                    <form method="post" action="{% url 'users:logout' %}" style="display: inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link nav-link active">
+                            <i class="bi bi-box-arrow-right"></i> Выйти
+                        </button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'users:login' %}"><i class="bi bi-box-arrow-in-right"></i> Войти</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="{% url 'users:register' %}">Регистрация</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,13 @@
+<div class="ms-3 me-auto text-black">
+    <p class="link-underline mb-0 mb-0 fw-medium text-primary me-3 link-underline-opacity-0">
+        Попытка рассылки {{object.id}}</p>
+    <hr class="me-0 mt-2"/>
+    <div class="lh-base fw-normal text text-secondary fs-5 ">
+        <p class="text mb-0">Группа рассылки: <span class="text text-primary">{{ object.mailing }}</span></p>
+        <p class="text mb-0">Получатель: <span class="text text-primary">{{ object.recipient }}</span></p>
+        <p class="text mb-0">Статус: <span class="text text-primary">{{ object.get_status_display }}</span></p>
+        <p class="text mb-0">Дата и время попытки: <span class="text text-primary">{{ object.attempt_datetime }}</span></p>
+        <p class="text mb-0">Ответ почтового сервера: <span class="text text-primary">{{ object.server_response }}</span></p>
+
+    </div>
+</div>

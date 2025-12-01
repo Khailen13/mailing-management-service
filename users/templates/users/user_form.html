@@ -1,0 +1,29 @@
+{% extends 'mailing/base.html' %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+{% include 'mailing/menu.html' %}
+<div class="container mt-5">
+    <form class="row justify-content-center" method="post">
+            <div class="card w-50">
+                <div class="card-body ">
+                    <p class="text-primary fs-5">
+                        {% if object %}
+                        Изменение данных профиля
+                        {% else %}
+                        Регистрация
+                        {% endif %}
+                    </p>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary ">
+                        {% if object %}
+                        Сохранить
+                        {% else %}
+                        Зарегистрироваться
+                        {% endif %}
+                    </button>
+                </div>
+            </div>
+    </form>
+</div>
+{% endblock %}

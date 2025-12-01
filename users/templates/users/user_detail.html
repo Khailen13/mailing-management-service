@@ -1,0 +1,30 @@
+{% extends 'mailing/base.html' %}
+{% block title %}Данные пользователя{% endblock %}
+{% load users_tags %}
+{% block content %}
+{% include 'mailing/menu.html' %}
+<div class="container ">
+    <div class="d-flex flex-row mb-3 mt-5">
+        <h3 class="p-2 text-start text-primary fw-bolder ">
+            <a class="text" title="Редактировать профиль" href="{% url 'users:user_update' user.pk %}">
+               <i class="bi bi-pencil-square"></i></a> Данные пользователя </h3>
+        <div></div>
+    </div>
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{user.avatar | media_filter}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Email: {{user.email}}</h5>
+                    <p class="card-text">Номер телефона: {{user.phone_number}}</p>
+                    <p class="card-text">Страна: {{user.country}}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
