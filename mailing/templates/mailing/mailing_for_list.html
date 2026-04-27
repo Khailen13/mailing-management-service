@@ -1,0 +1,15 @@
+<div class="ms-3 me-auto text-black">
+    <a class="link-underline mb-0 mb-0 fw-medium text-primary me-3 link-underline-opacity-0"
+       href="{% url 'mailing:mailing_detail' object.pk %}">{{object.id}}. Рассылка письма "{{ object.message|truncatechars:50 }}"</a>
+    <hr class="me-0 mt-2"/>
+    <div class="lh-base fw-normal text text-secondary fs-5 ">
+        <p class="text mb-0">Статус рассылки: <span class="text text-primary">{{ object.get_status_display }}</span></p>
+       {% if object.status != "created" %}
+        <p class="text mb-0">Дата и время:</p>
+        <ul>
+            <li> первой отправки: <span class="text text-primary">{{ object.start_datetime }}</span></li>
+            <li> окончания отправки: <span class="text text-primary">{{ object.end_datetime }}</span></li>
+        </ul>
+        {% endif %}
+    </div>
+</div>

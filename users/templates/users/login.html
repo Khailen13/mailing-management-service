@@ -1,0 +1,18 @@
+{% extends 'mailing/base.html' %}
+{% block title %}{{ view_name }}{% endblock %}
+{% block content %}
+{% include 'mailing/menu.html' %}
+<div class="container mt-5">
+    <form class="row justify-content-center " method="post">
+        <div class="card w-50">
+            <div class="card-body ">
+                <p class="text-primary fs-5"> Введите данные для входа </p>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary ">Войти</button>
+                 <p><a href="{% url 'users:password_reset' %}">Забыли пароль?</a></p>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

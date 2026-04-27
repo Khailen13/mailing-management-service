@@ -1,0 +1,43 @@
+{% extends 'mailing/base.html' %}
+{% block title %}{{view_name}}{% endblock %}
+{% block content %}
+{% include 'mailing/menu.html' %}
+<div class="container ">
+    <div class="d-flex flex-row mb-3 mt-5">
+        <h3 class="p-2 text-start text-primary fw-bolder ">
+            <a class="text" title="Вернуться к списку" href="{% url obj_list_url %}">
+                <i class="bi bi-arrow-left-square"></i></a> {{view_name}} </h3>
+        <div></div>
+    </div>
+    <ul class="list-group list-group fw-medium lh-lg fs-5">
+        <li class="list-group-item d-flex justify-content-between align-items-start text-primary border-dark-subtle">
+            {% include obj_for_detail %}
+            {% if user == object.owner or user.is_superuser %}
+            {% if view_name != "Попытки рассылок"%}
+            <form method="post">
+                {% csrf_token %}
+                <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+
+                    {% if view_name == "Рассылки"%}
+                    <button type="submit" class="btn btn-outline-primary" name="run mailing" value={{object.pk}}
+                            title="Запустить">
+                        <i class="bi bi-collection-play-fill"></i>
+                    </button>
+                    {% endif %}
+                    <a type="button" class="btn btn-outline-primary " title="Редактировать"
+                       href="{% url obj_update_url object.pk %}">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a type="button" class="btn btn-outline-primary " title="Удалить"
+                       href="{% url obj_delete_url object.pk %}">
+                        <i class="bi bi-trash3"></i>
+                    </a>
+
+                </div>
+            </form>
+            {% endif %}
+            {% endif %}
+        </li>
+    </ul>
+</div>
+{% endblock %}

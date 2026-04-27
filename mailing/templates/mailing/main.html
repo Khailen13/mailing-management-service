@@ -1,0 +1,42 @@
+{% extends 'mailing/base.html' %}
+{% block title %} Главная {% endblock %}
+{% block content %}
+{% include 'mailing/menu.html' %}
+
+
+<div style="grid-template-columns: 1fr;" class="d-flex column-gap-4 row-gap-4 m-5">
+        <div class="container marketing text-primary fst-italic fs-2 m-5">
+        <div class="row">
+            <div class="card bg-success bg-gradient mb-3 text-center text-white" style="max-width: 30rem;">
+                <div class="card-header"> <i class="bi bi-person-lines-fill"></i> Уникальных получателей</div>
+                <div class="card-body">
+                    <h5 class="card-title text fs-1 lh-lg">{{ recipients_count }}</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container marketing text-primary align-items-center fst-italic fs-2 m-5">
+        <div class="row">
+            <div class="card bg-primary bg-gradient mb-3 text-center text-white" style="max-width: 30rem;">
+                <div class="card-header"> <i class="bi bi-send"></i> Активных рассылок</div>
+                <div class="card-body">
+                    <h5 class="card-title text fs-1 lh-lg">{{ mailing_launched_count }}</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container marketing text-primary fst-italic fs-2 m-5">
+        <div class="row">
+            <div class="card bg-danger bg-gradient mb-3 text-center text-white" style="max-width: 30rem;">
+                <div class="card-header"> <i class="bi bi-stack"></i> Всего рассылок</div>
+                <div class="card-body">
+                    <h5 class="card-title text fs-1 lh-lg">{{ mailing_attempts_count }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
