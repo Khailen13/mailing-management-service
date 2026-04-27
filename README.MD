@@ -87,7 +87,7 @@ python manage.py add_managers_group
 ## Использование:
 Установите зависимости:
 ```
-git clone https://github.com/Khailen13/course_project_4
+git clone https://github.com/Khailen13/mailing-management-service
 ```
 Установите зависимости:
 ```
