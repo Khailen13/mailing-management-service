@@ -1,0 +1,7 @@
+<div class="ms-3 me-auto text-black">
+    <a class="link-underline mb-0 mb-0 fw-medium text-primary me-3 link-underline-opacity-0"
+       href="{% url 'mailing:message_detail' object.pk %}">{{object.id}}. "{{ object.subject}}"</a>
+    <hr class="me-0 mt-2"/>
+    <pre style="white-space: pre-wrap; text-indent: 25px;"
+         class="lh-base"> {{ object.body }}</pre>
+</div>

@@ -1,0 +1,53 @@
+{% extends 'mailing/base.html' %}
+{% block title %}Список пользователей{% endblock %}
+{% load users_tags %}
+{% block content %}
+{% include 'mailing/menu.html' %}
+<div class="container">
+    <div class="d-flex flex-row mb-3 mt-5">
+        <h3 class="p-2 text-start text-primary fw-bolder ">Список пользователей</h3>
+    </div>
+    <table class="table text-center table-striped table-primary ">
+        <thead class="table-primary">
+        <tr class="text fw-light">
+            <th scope="col">id</th>
+            <th scope="col">Email</th>
+            <th scope="col">Страна</th>
+            <th scope="col">Получатели</th>
+            <th scope="col">Рассылки</th>
+            <th scope="col">Запущенные рассылки</th>
+            {% if "users.change_user_activity" in perms %}
+            <th scope="col">Доступ к сервису</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody class="table-light text fw-medium">
+        {% for object in object_list %}
+        <tr>
+            <th>{{object.id}}</th>
+            <th>{{object.email}}</th>
+            <th>{{object.country}}</th>
+            <th>{{ recipients_count|get_value_from_dict:object.pk }}</th>
+            <th>{{ mailing_count|get_value_from_dict:object.pk }}</th>
+            <th>{{ running_mailing_count|get_value_from_dict:object.pk }}</th>
+            {% if "users.change_user_activity" in perms %}
+            <th class="text text-center">
+                {% if object.pk != user.pk %}
+                <form action="{% url 'users:user_activity' object.pk %}" method="post">
+                    {% csrf_token %}
+                    {% if object.is_active %}
+                    <button type="submit" class="btn btn-warning text " role="button"> Приостановить </button>
+                    {% else %}
+                    <button type="submit" class="btn btn-primary" role="button"> Восстановить </button>
+                    {% endif %}
+                </form>
+                {% endif %}
+            </th>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

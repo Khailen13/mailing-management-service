@@ -1,0 +1,67 @@
+{% extends 'mailing/base.html' %}
+{% block title %}{{ view_name }}{% endblock %}
+{% block content %}
+{% include 'mailing/menu.html' %}
+<div class="container ">
+    <div class="d-flex flex-row mb-3 mt-5">
+        <h3 class="p-2 text-start text-primary fw-bolder ">
+            {% if "Попытки рассылок" not in view_name %}
+            <a class="text" title="Добавить" href="{% url add_button_url %}">
+                <i class="bi bi-plus-square"></i></a>
+            {% endif %}
+            {{ view_name }}</h3>
+    </div>
+    <ul class="list-group list-group fw-medium fs-5 lh-lg">
+        {% if object_list %}
+        {% for object in object_list %}
+        <li class="list-group-item d-flex justify-content-between align-items-start text-primary border-dark-subtle">
+            {% if view_name == "Рассылки" %}
+            <form action="{% url 'mailing:mailing_activity' object.pk %}" method="post">
+                {% csrf_token %}
+                {% if object.is_active and "mailing.change_mailing_activity" in perms%}
+                <button type="submit" class="btn btn-outline-primary fs-6 " role="button" title="Отключить">
+                    <i class="bi bi-ui-checks-grid"></i>
+                </button>
+                {% else %}
+                <button type="submit" class="btn btn-outline-primary" role="button" title="Включить">
+                    <i class="bi bi-ui-checks-grid"></i>
+                </button>
+                {% endif %}
+            </form>
+            {% endif %}
+            {% include obj_for_list %}
+            {% if "Попытки рассылок" not in view_name %}
+            {% if user == object.owner or user.is_superuser %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                    {% if view_name == "Рассылки"%}
+                    <button type="submit" class="btn btn-outline-primary" name="run mailing" value={{object.pk}}
+                            title="Запустить">
+                        <i class="bi bi-collection-play-fill"></i>
+                    </button>
+                    {% endif %}
+                    <a type="button" class="btn btn-outline-primary " title="Редактировать"
+                       href="{% url obj_update_url object.pk %}">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a type="button" class="btn btn-outline-primary " title="Удалить"
+                       href="{% url obj_delete_url object.pk %}">
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </div>
+            </form>
+            {% endif %}
+            {% endif %}
+        </li>
+        {% endfor %}
+        {% else %}
+        <li class="list-group-item d-flex justify-content-between align-items-start text-primary border-dark-subtle">
+            <div class="ms-3 me-auto text-black">
+                <p class="link-underline mb-0 mb-0 fw-medium text-primary me-3 link-underline-opacity-0">Пусто</p>
+            </div>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}

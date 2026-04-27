@@ -1,0 +1,35 @@
+{% extends 'mailing/base.html' %}
+{% block title %}{{ view_name }}{% endblock %}
+{% block content %}
+{% include 'mailing/menu.html' %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-primary">
+                            {{ view_name }}
+                           </h5>
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-grid gap-5 d-md-flex m-3">
+                            <button type="submit" class="btn btn-primary ">
+                                {% if object %}
+                                {% if user == object.owner or user.is_superuser %}
+                                Сохранить
+                                {% endif %}
+                                {% else %}
+                                Добавить
+                                {% endif %}
+                            </button>
+                            <a class="btn btn-primary" href="{% url obj_list_url %}"
+                               role="button">Отменить</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
